@@ -89,9 +89,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("WebSocket", "Error: ", t);
             }
         });
-
-        // 將 WebSocket 實例保持在變數中，便於後續操作
-        client.dispatcher().executorService().shutdown();
     }
 
     // 生成 Authorization token 的方法
