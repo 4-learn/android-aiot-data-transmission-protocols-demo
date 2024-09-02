@@ -1,31 +1,17 @@
-<!-- res/layout/activity_main.xml -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
 
-    <!-- TextView to display the HTTP Response -->
     <TextView
         android:id="@+id/responseTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="Response will be displayed here"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:gravity="center" />
-
-    <!-- Button to send the HTTP Request -->
-    <Button
-        android:id="@+id/sendButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/responseTextView"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
-        android:text="Send Request"
-        android:textSize="16sp"
-        android:padding="10dp" />
+        android:text="等待接收消息..."
+        android:textSize="18sp"
+        android:layout_marginBottom="16dp" />
 
-</RelativeLayout>
+</LinearLayout>

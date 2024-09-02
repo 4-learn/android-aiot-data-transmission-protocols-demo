@@ -2,8 +2,6 @@ package com.wisky.aiot_data_transmission_protocols;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String MQTT_TOPIC = "testTopic";
 
     private TextView responseTextView;
-    private Button sendButton;
     private Mqtt3AsyncClient client;
 
     @Override
@@ -29,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         responseTextView = findViewById(R.id.responseTextView);
-        sendButton = findViewById(R.id.sendButton);
 
         // 初始化 MQTT 客戶端
         client = MqttClient.builder()
@@ -39,13 +35,6 @@ public class MainActivity extends AppCompatActivity {
                 .buildAsync();
 
         connectToMqttBroker();
-
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                publishMessage("Hello from Android MQTT Client!");
-            }
-        });
     }
 
     private void connectToMqttBroker() {
@@ -62,28 +51,6 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Log.e(TAG, "Failed to connect to MQTT broker: " + connAck.getReturnCode());
                         runOnUiThread(() -> Toast.makeText(MainActivity.this, "MQTT 連接失敗: " + connAck.getReturnCode(), Toast.LENGTH_SHORT).show());
-                    }
-                });
-    }
-
-    private void publishMessage(String message) {
-        client.publishWith()
-                .topic(MQTT_TOPIC)
-                .payload(message.getBytes())
-                .send()
-                .whenComplete((publish, throwable) -> {
-                    if (throwable != null) {
-                        runOnUiThread(() -> {
-                            Toast.makeText(MainActivity.this, "數據發送失敗", Toast.LENGTH_SHORT).show();
-                            responseTextView.setText("數據發送失敗: " + throwable.getMessage());
-                        });
-                        Log.e(TAG, "Failed to publish MQTT message", throwable);
-                    } else {
-                        runOnUiThread(() -> {
-                            Toast.makeText(MainActivity.this, "數據已成功發送", Toast.LENGTH_SHORT).show();
-                            responseTextView.setText("數據已成功發送: " + message);
-                        });
-                        Log.i(TAG, "Published MQTT message: " + message);
                     }
                 });
     }
